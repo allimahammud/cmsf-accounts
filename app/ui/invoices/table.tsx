@@ -4,6 +4,13 @@ import InvoiceStatus from '@/app/ui/invoices/status';
 import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredInvoices } from '@/app/lib/data';
 
+function formatCurrencyBDT(amount: number): string {
+  return new Intl.NumberFormat('en-BD', {
+    style: 'currency',
+    currency: 'BDT',
+    minimumFractionDigits: 2,
+  }).format(amount);
+}
 export default async function InvoicesTable({
   query,
   currentPage,
@@ -12,7 +19,7 @@ export default async function InvoicesTable({
   currentPage: number;
 }) {
   const invoices = await fetchFilteredInvoices(query, currentPage);
-
+ console.log('data', invoices);
   return (
     <div className="mt-6 flow-root">
       <div className="inline-block min-w-full align-middle">
@@ -42,7 +49,7 @@ export default async function InvoicesTable({
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
                     <p className="text-xl font-medium">
-                      {formatCurrency(invoice.amount)}
+                      {formatCurrencyBDT(invoice.amount)}
                     </p>
                     <p>{formatDateToLocal(invoice.date)}</p>
                   </div>

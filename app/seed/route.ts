@@ -2,7 +2,17 @@ import bcrypt from 'bcrypt';
 import postgres from 'postgres';
 import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require', prepare: false,  });
+console.log('message', sql);
+// const dbUrl = process.env.POSTGRES_URL;
+
+// if (!dbUrl) {
+//   throw new Error("POSTGRES_URL is not set in environment variables");
+// }
+
+// const sql = postgres(dbUrl, {
+//   ssl: dbUrl.includes("vercel") || dbUrl.includes("supabase") ? 'require' : false,
+// });
 
 async function seedUsers() {
   await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;

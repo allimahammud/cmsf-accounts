@@ -13,7 +13,7 @@ const iconMap = {
   invoices: InboxIcon,
 };
 
-export default async function CardWrapper() {
+export default async function CardWrapperwe() {
   return (
     <>
       {/* NOTE: Uncomment this code in Chapter 9 */}
