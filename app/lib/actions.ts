@@ -48,6 +48,7 @@ const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function updateInvoice(id: string, formData: FormData) {
+  
   const { customerId, amount, status } = UpdateInvoice.parse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
@@ -89,7 +90,6 @@ export async function createInvoice( prevState: State,
 ): Promise<State>  {
   // Validate form using Zod
   debugger;
-  console.log("Inside action.ts",formData.get('customerId'), formData.get('amount'),formData.get('status'))
   const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
@@ -101,10 +101,10 @@ export async function createInvoice( prevState: State,
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       values: {
-  customerId: formData.get('customerId')?.toString() || undefined,
-  amount: formData.get('amount')?.toString() || undefined,
-  status: formData.get('status')?.toString() || undefined,
-},
+      customerId: String(formData.get('customerId') ?? ''),
+      amount: String(formData.get('amount') ?? ''),
+      status: String(formData.get('status') ?? ''),
+    },
       message: 'Missing Fields. Failed to Create Invoice.',
     };
   }

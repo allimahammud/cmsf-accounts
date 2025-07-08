@@ -14,9 +14,6 @@ import { createInvoice, State } from '@/app/lib/actions';
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState: State = { message: null, errors: {} , values: {}};
   const [state, formAction] = useActionState(createInvoice, initialState);
-  // function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-  //   state(e.target.value);
-  // }
   console.log(state)
   return (
     <form action={formAction}>
