@@ -1,7 +1,7 @@
 import { generateYAxis } from '@/app/lib/utils';
 import { CalendarIcon } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
-import { Revenue } from '@/app/lib/definitions';
+//import { Revenue } from '@/app/lib/definitions';
 import { fetchRevenue } from '@/app/lib/data';
 // This component is representational only.
 // For data visualization UI, check out:
@@ -39,7 +39,7 @@ export default async function RevenueChart() { // Make component async, remove t
           <div
             className="mb-6 hidden flex-col justify-between text-sm text-gray-400 sm:flex" style={{ height: `${chartHeight}px` }}
           >
-            {yAxisLabels?.map((label: any) => (
+            {yAxisLabels?.map((label) => (
               <p key={label}>{label}</p>
             ))}
           </div>
