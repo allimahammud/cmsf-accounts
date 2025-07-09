@@ -1,0 +1,464 @@
+    1  git add .
+    2  code .
+    3  code .
+    4  ssh root@43.229.15.123
+    5  ssh root@43.229.15.123
+    6  code.
+    7  code .
+    8  ssh root@43.229.15.216
+    9  ssh root@43.229.15.216
+   10  ssh root@43.229.15.216
+   11  ssh root@43.229.15.216
+   12  ssh root@43.229.15.216
+   13  ssh root@43.229.15.216
+   14  ssh root@43.229.15.216
+   15  ssh root@43.229.15.216
+   16  ssh root@43.229.15.216
+   17  ssh root@43.229.15.216
+   18  ssh root@43.229.15.216
+   19  ssh root@43.229.15.216
+   20  ssh root@43.229.15.216
+   21  ssh root@43.229.15.216
+   22  ssh root@43.229.15.216
+   23  truncate table issuerinfocash
+   24  select sum(cast(net as float)) fr  from public.issuerinfocash where (dividendtype='CashDividend' or dividendtype='FractionDividend') ;
+   25  o$L5i@@^t&#W2!il
+   26  ssh root@43.229.15.216
+   27  ssh root@43.229.15.216
+   28  ssh root@43.229.15.216
+   29  ssh root@43.229.15.216
+   30  ssh root@43.229.15.216
+   31  ssh root@43.229.15.216
+   32  git init
+   33  git status
+   34  git remote add origin https://github.com/cmsfict21/insaf.git 
+   35  git remote --version
+   36  git remote --v
+   37  git fetch origin main
+   38  git status
+   39  git merge dev
+   40  git branch -a
+   41  git checkout main
+   42  git status
+   43  git merge dev
+   44  git log
+   45  git checkout dev
+   46  git branch
+   47  git branch -all
+   48  git branch -a
+   49  git checkout remotes/origin/main
+   50  git status
+   51  git remote --v
+   52  git fetch origin main
+   53  git status
+   54  git checkout master
+   55  git branch -a
+   56  git checkout main
+   57  git branch -a
+   58  git --config
+   59  git merge dev
+   60  git config --list
+   61  git config --global email
+   62  git config --global user.email
+   63  git config --global user.email "ict@cmsfbd.org"
+   64  git config --global user.name "cmsfict21"
+   65  git config --list
+   66  pwd
+   67  git config --list
+   68  git remote -v
+   69  git pull origin dev
+   70  ls -al
+   71  git status
+   72  git checkout dev
+   73  git status
+   74  git pull origin dev
+   75  ls -al
+   76  git log
+   77  git checkout main
+   78  git merge dev
+   79  git checkout dev
+   80  git status
+   81  git status
+   82  git commit -m "Create common ancestor commit"
+   83  git checkout main
+   84  git merge --allow-unrelated-histories dev
+   85  ls -al
+   86  git status
+   87  git status
+   88  git commit -m "dev branch file transfer to the main br"
+   89  rm -rf README.md 
+   90  git merge --allow-unrelated-histories dev
+   91  git commit -m "dev branch file transfer to the main br"
+   92  git checkout dev
+   93  git merge  dev
+   94  git add .
+   95  git merge  dev
+   96  git commit -m "dev branch file transfer to the main br"
+   97  git merge  dev
+   98  git push origin main
+   99  git init
+  100  ls -al
+  101  open .git/
+  102  pwd
+  103  git status
+  104  git branch
+  105  git checkout nawshin
+  106  ssh root@43.229.15.216
+  107  git status
+  108  git remote -v
+  109  code .
+  110  git remote -v
+  111  git pull origin nawshin
+  112  git status
+  113  gicode .
+  114  code .
+  115  git remote -v
+  116  git pull origin nawshin
+  117  git colone https://github.com/cmsfict21/insaf-frontend.git
+  118  git clone https://github.com/cmsfict21/insaf-frontend.git
+  119  ls -al
+  120  cd insaf-frontend/
+  121  code .
+  122  git remote -v
+  123  git push origin main
+  124  git push origin main
+  125  git diff
+  126  git remote -v
+  127  git branch -a
+  128  git checkout nawshin
+  129  git merge Prod-Labir
+  130  git merge remotes/origin/Prod-Labir
+  131  git push origin main
+  132  git add .
+  133  git branch -a
+  134  git add .
+  135  git status
+  136  git status
+  137  'git push origin main
+  138  git push orgiin main
+  139  git push origin main
+  140  git pull origin main
+  141  git add .
+  142  git commit -m "add bank account settlement page" 
+  143  git push origin main
+  144  git branch -a
+  145  git status -s
+  146  code .
+  147  git commit -m "add bank account "
+  148  git push origin main
+  149  ssh root@43.229.15.216
+  150  ssh root@43.229.15.216
+  151  git status
+  152  git add .
+  153  git commit -m "mesahge"
+  154  git push origin main
+  155  git diff origin main
+  156  git diff 
+  157  git diff main origin/main
+  158  touch files.txt
+  159  git add .
+  160  git commit -m "add "
+  161  git push origin main
+  162  git push origin main
+  163  rm -rf files.txt 
+  164  git push origin main
+  165  git add .
+  166  git commit -m "add "
+  167  git push origin main
+  168  git push origin main index.html
+  169  git branch
+  170  git branch -b ali
+  171  git checkout -b ali
+  172  git add .
+  173  git commit -m "add all files to ali"
+  174  git push origin ali
+  175  git add .
+  176  git status
+  177  git remote -v
+  178  git push -f origin ali
+  179  git checkout main
+  180  git merge ali
+  181  git push origin :index.html
+  182  git pull --rebase origin main
+  183  git status -s
+  184  ls -al
+  185  git remote -v
+  186  git remote remove
+  187  git remote remove origin
+  188  git remote remove origin https://github.com/cmsfict21/insaf-frontend-prod.git
+  189  git remote add origin https://github.com/cmsfict21/insaf-frontend-prod.git
+  190  git remote -v
+  191  git push -f origin main
+  192  git files-ls
+  193  ls -al
+  194  git remote -v
+  195  git diff main origin/main
+  196  git log
+  197  git push origin HEAD:main
+  198  git commit -a -m "your message goes here"
+  199  git ad .
+  200  git add .
+  201  git commit -a -m "your message goes here"
+  202  git push origin HEAD:main
+  203  git push origin ali
+  204  git push origin main:ali
+  205  git config http.postBuffer 524288000
+  206  git push origin main:ali
+  207  git log
+  208  git reset --hard 7caf16a852ddf71207d6091cac72e8dfa21481b7
+  209  git log
+  210  git push origin main
+  211  git rebase origin main
+  212  git rebase origin/main
+  213  git add .
+  214  git commit -m "boid not mandatory"
+  215  git dif main origin/main
+  216  git diff main origin/main
+  217  code .
+  218  git diff
+  219  git init
+  220  git remote -v
+  221  git branch -a
+  222  git status
+  223  git pull origin main
+  224  git status
+  225  git add .
+  226  git commit -m "add settlement "
+  227  code .
+  228  git status
+  229  git pull origin main
+  230  git merge origin main
+  231  git status
+  232  git commit -m "udapted at 20240827"
+  233  git add .
+  234  git commit -m "udapted at 20240827"
+  235  git push origin main
+  236  git pull origin main
+  237  npm push
+  238  git push
+  239  npm run build
+  240  git add ,.
+  241  git add .
+  242  git commit -m "udapted at 20240827"
+  243  git status
+  244  ls -al
+  245  git add .
+  246  git commit -m "boid not mandatory"
+  247  git push origin main
+  248  git add .
+  249  git add .
+  250  git commit -m "20240827"
+  251  git push origin main
+  252  git push
+  253  git status
+  254  git push origin main
+  255  git status
+  256  git merge origin halim
+  257  git pull main
+  258  git remote -v
+  259  git pull origin main
+  260  code .
+  261  git status
+  262  git add .
+  263  git commit -m "Updated at 20240827"
+  264  git push 
+  265  git push origin main
+  266  git status
+  267   code .
+  268  git add .
+  269  git commit -m "udaped "
+  270  git add  .
+  271  git push origin main
+  272  git add .
+  273  git commit -m "udaped "
+  274  git push origin main
+  275  git pull origin main
+  276  git add .
+  277  git commit -m "udaped 2 "
+  278  git push origin main
+  279  git add .
+  280  git commit -m "udapted "
+  281  git push origin main
+  282  git status
+  283  git push origin main
+  284  git push origin main
+  285  rm -rf .git
+  286  ls -lf
+  287  rm -rf *
+  288  ls -lf
+  289  git remote add origin https://github.com/cmsfict21/insaf-frontend-prod.git
+  290  ls -al
+  291  git init
+  292  git remote add origin https://github.com/cmsfict21/insaf-frontend-prod.git
+  293  git remote -v
+  294  ls -al
+  295  git checkout -b main
+  296  ls -al
+  297  git pull origin main
+  298  ls -lf
+  299  ls -al
+  300  git remote -v
+  301  rm -rf .git
+  302  rm -rf *
+  303  git init
+  304  git checkout -b main
+  305  git push origin main
+  306  git add .
+  307  git commit -m "remove all file"
+  308  git push origin main
+  309  git push origin:main
+  310   git push --set-upstream origin:main main
+  311  ls -al
+  312  git status
+  313  git add .
+  314  git commit -m "All files newly added"
+  315  git push origin main
+  316  git remote -v
+  317  git remote add origin https://github.com/cmsfict21/insaf-frontend-prod.git
+  318  git push origin main
+  319  git rebase origin/main
+  320  git rebase origin main
+  321  git rebas origin main
+  322  git merge origin main
+  323  git push origin main
+  324  git fetch origin main
+  325  ls -al
+  326  git add .
+  327  git commit -m "All files newly added"
+  328  git push origin main
+  329  git push -f origin main
+  330  git status
+  331  git add .
+  332  git commit -m "remove boid mandatory field"
+  333  git push -f origin main
+  334  git add .
+  335  git commit -m "remove boid mandatory field"
+  336  git push -f origin main
+  337  git push -f origin main
+  338  git pull origin halim
+  339  git add .
+  340  git commit -m "udpated at 2024027"
+  341  git commit -m "udpated at 2024027"
+  342  git commit -m "udpated at 2024027"
+  343  git commit -m "udpated at 2024027"
+  344  git commit -m "udpated at 2024027"
+  345  git push origin main
+  346  git push origin main
+  347  npm run build
+  348  ssh root@43.229.15.216
+  349  code .
+  350  git remote -v
+  351  git status
+  352  git fetch origin main
+  353  git status
+  354  code .
+  355  ls-remote
+  356  ls -remote
+  357  ssh root@43.229.15.216
+  358  ssh root@43.229.15.213
+  359  ssh root@43.229.15.223
+  360  ssh root@43.229.15.123
+  361  ssh root@43.229.15.123
+  362  ssh root@43.15.29.123
+  363  ssh root@43.15.229.123
+  364  ssh root@43.229.15.123
+  365  ssh root@43.229.15.216
+  366  ssh root@43.229.15.123
+  367  ssh root@43.229.15.216
+  368  ssh root@43.229.15.123
+  369  ssh root@43.229.15.123
+  370  ssh root@43.229.15.123
+  371  ssh root@43.229.15.123
+  372  ssh root@43.229.15.123
+  373  ssh root@43.229.15.123
+  374  ssh root@43.229.15.123
+  375  ssh root@43.229.15.123
+  376  ssh root@43.229.15.123
+  377  ssh root@43.229.15.123
+  378  ssh root@43.229.15.123
+  379  ssh root@43.229.15.123
+  380  ssh root@43.229.15.216
+  381  ssh root@43.229.15.123
+  382  code .
+  383  codde .
+  384  code .
+  385  code .
+  386  ssh root@43.229.15.216
+  387  ssh root@43.229.15.216
+  388  ssh root@43.229.15.216
+  389  ssh root@43.229.15.216
+  390  ssh root@43.229.15.216
+  391  ssh root@43.229.15.216
+  392  ssh root@43.229.15.216
+  393  ssh root@43.229.15.216
+  394  ssh root@43.229.15.216
+  395  ssh root@43.229.15.216
+  396  ssh root@43.229.15.216
+  397  ssh root@43.229.15.216
+  398  ssh root@43.229.15.216
+  399  ssh root@43.229.15.216
+  400  ssh root@43.229.15.216
+  401  ssh root@43.229.15.216
+  402  ssh root@43.229.15.216
+  403  ssh root@43.229.15.216
+  404  ssh root@43.229.15.216
+  405  ssh root@43.229.15.216
+  406  ssh root@43.229.15.216
+  407  ssh root@43.229.15.216
+  408  ssh root@43.229.15.123
+  409  ssh root@43.229.15.123
+  410  ssh root@43.229.15.123
+  411  ssh root@43.229.15.123
+  412  ssh root@43.229.15.123
+  413  ssh root@43.229.15.216
+  414  ssh root@43.229.15.123
+  415  ssh root@43.229.15.123
+  416  ssh root@43.229.15.123
+  417  code .
+  418  code .
+  419  cd cmsf-accounts/
+  420  pnpm dev
+  421  pnpm dev
+  422  rm -rf .next/
+  423  pnpm dev
+  424  pnpm build
+  425  pnpm lint
+  426  pnpm dev
+  427  pnpm dev
+  428  rm -rf node_modules pnpm-lock.yaml package.json 
+  429  pnpm install next@15.3.5 react@19.1.0 react-dom@19.1.0
+  430  pnpm dev
+  431  vim package.json 
+  432  pnpm install next react react-dom
+  433  pnpm -v
+  434  corepack enable pnpm
+  435  pnpm -v
+  436  git status
+  437  git add .
+  438  pnpm -v
+  439  pnpm install next react react-dom
+  440  pnpm build
+  441  pnpm lint
+  442  pnpm dev
+  443  pnpm dev
+  444  pnpm dev
+  445  rm -rf node_modules pnpm-lock.yaml package.json 
+  446  pnpm install next@15.3.5 react@19.1.0 react-dom@19.1.0
+  447  pnpm install next react react-dom
+  448  pnpm build
+  449  pnpm lint
+  450  pnpm dev
+  451  pnpm dev
+  452  rm - .next/
+  453  rm -rf .next/
+  454  pnpm dev
+  455  pnpm list next-auth
+  456  rm -rf node_modules pnpm-lock.yaml package.json 
+  457  pnpm install next@15.3.5 react@19.1.0 react-dom@19.1.0
+  458  pnpm install next react react-dom
+  459  rm - .next/
+  460  pnpm build
+  461  pnpm lint
+  462  pnpm dev
+  463  pnpm dev
+  464  history > listcommand_9_7_25_2.txt

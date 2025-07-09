@@ -4,6 +4,10 @@ import { z } from 'zod';
  import postgres from 'postgres';
  import { revalidatePath } from 'next/cache';
  import { redirect } from 'next/navigation';
+ import { signIn } from '@/app/config/auth';
+import { AuthError } from 'next-auth';
+//import { authConfig } from '@/auth.config';
+ 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require', prepare: false });
 
 // const FormSchema = z.object({
@@ -139,4 +143,24 @@ export async function createInvoice( prevState: State,
 export async function deleteInvoice(id: string) {
   await sql`DELETE FROM invoices WHERE id = ${id}`;
   revalidatePath('/dashboard/invoices');
+}
+
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
+  }
 }
