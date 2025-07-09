@@ -14,7 +14,13 @@ import { useSearchParams } from 'next/navigation';
  
 export default function LoginForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard/overview';
+  //local 
+  //const callbackUrl = searchParams.get('callbackUrl') || '/dashboard/overview';
+
+  const safeRedirect = searchParams.get('callbackUrl');
+
+// Fallback to dashboard homepage only if callbackUrl is empty or unsafe
+  const callbackUrl = safeRedirect?.startsWith('/') ? safeRedirect : '/dashboard/overview';
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined,
