@@ -1,6 +1,19 @@
 import SideNav from '@/app/ui/dashboard/sidenav';
- 
-export const experimental_ppr = true;
+import { Metadata } from 'next';
+//import NavMenu from '@/app/ui/dashboard/nav-menu';
+//import { menuItems } from '@/app/lib/menu';
+export const metadata: Metadata = {
+  title: {
+    template: '%s | CMSF Dashboard',
+    default: 'CMSF Software Management',
+  },
+  description: 'The official CMSF Software management ERP System.',
+  metadataBase: new URL('https://cmsfbd.org/'),
+   icons: {
+    icon: '/favicon.ico', 
+  },
+};
+//export const experimental_ppr = true;
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     
   return (

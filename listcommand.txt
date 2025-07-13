@@ -490,3 +490,4 @@
   490  history -> listcommand.txt
   491  cat listcommand.txt cat listcommand.txt 
   492  history > listcommand.txt
+npx create-next-app@latest cmsf-accounts --example "https://github.com/vercel/next-learn/tree/main/dashboard/starter-example" --use-pnpm

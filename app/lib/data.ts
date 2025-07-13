@@ -6,6 +6,7 @@ import {
   InvoicesTable,
   LatestInvoiceRaw,
   Revenue,
+  CustomerAllField,
 } from './definitions';
 import { formatCurrency } from './utils';
 
@@ -174,6 +175,27 @@ export async function fetchCustomers() {
         id,
         name
       FROM customers
+      ORDER BY name ASC
+    `;
+
+    return customers;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all customers.');
+  }
+}
+
+export async function fetchCustomersAllField(query: string) {
+  try {
+    const customers = await sql<CustomerAllField[]>`
+      SELECT
+        id,
+        name,
+        email,
+        image_url
+      FROM customers
+      WHERE
+      customers.name ILIKE ${`%${query}%`} 
       ORDER BY name ASC
     `;
 

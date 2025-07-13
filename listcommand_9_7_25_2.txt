@@ -462,3 +462,4 @@
   462  pnpm dev
   463  pnpm dev
   464  history > listcommand_9_7_25_2.txt
+ "seed": "ts-node-esm --project tsconfig.seed.json app/seed/route.ts"

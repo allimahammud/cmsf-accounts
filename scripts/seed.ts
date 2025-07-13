@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import postgres from 'postgres';
-import { invoices, customers, revenue, users } from '../lib/placeholder-data';
+import { invoices, customers, revenue, users } from '../app/lib/placeholder-data';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require', prepare: false,  });
 console.log('message', sql);
@@ -113,49 +113,43 @@ async function seedRevenue() {
   return insertedRevenue;
 }
 
+// export async function GET() {
+//   try {
+//     // const result = await sql.begin((sql) => [
+//     //   seedUsers(),
+//     //   seedCustomers(),
+//     //   seedInvoices(),
+//     //   seedRevenue(),
+//     // ]);
 
-//////// this endpoint seedinf process
-export async function GET() {
+//     await sql.begin(async () => {
+//   await seedUsers();
+//   await seedCustomers();
+//   await seedInvoices();
+//   await seedRevenue();
+// });
+
+
+//     return Response.json({ message: 'Database seeded successfully' });
+//   } catch (error) {
+//     return Response.json({ error }, { status: 500 });
+//   }
+// }
+async function main() {
   try {
-    // const result = await sql.begin((sql) => [
-    //   seedUsers(),
-    //   seedCustomers(),
-    //   seedInvoices(),
-    //   seedRevenue(),
-    // ]);
-
     await sql.begin(async () => {
-  await seedUsers();
-  await seedCustomers();
-  await seedInvoices();
-  await seedRevenue();
-});
+      await seedUsers();
+      await seedCustomers();
+      await seedInvoices();
+      await seedRevenue();
+    });
 
-
-    return Response.json({ message: 'Database seeded successfully' });
+    console.log('✅ Database seeded successfully');
+    process.exit(0);
   } catch (error) {
-    return Response.json({ error }, { status: 500 });
+    console.error('❌ Error seeding database:', error);
+    process.exit(1);
   }
 }
 
-
-///// this is command mode seeding process pnpm run seed
-
-// async function main() {
-//   try {
-//     await sql.begin(async () => {
-//       await seedUsers();
-//       await seedCustomers();
-//       await seedInvoices();
-//       await seedRevenue();
-//     });
-
-//     console.log('Database seeded successfully');
-//     process.exit(0);
-//   } catch (error) {
-//     console.error(' Error seeding database:', error);
-//     process.exit(1);
-//   }
-// }
-
-// main();
+main();
