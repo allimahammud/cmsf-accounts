@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt';
 import postgres from 'postgres';
-import { invoices, customers, revenue, users } from '../lib/placeholder-data';
+import { invoices, customers, revenue, users } from '../lib/placeholder-data.js';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require', prepare: false,  });
-console.log('message', sql);
+//console.log('message', sql);
 // const dbUrl = process.env.POSTGRES_URL;
 
 // if (!dbUrl) {
@@ -26,6 +26,13 @@ async function seedUsers() {
       password TEXT NOT NULL
     );
   `;
+  
+// await sql`ALTER TABLE users ADD COLUMN Phone VARCHAR(50)  NULL;`;
+// await sql`ALTER TABLE users ADD COLUMN ComputerName VARCHAR(50)  NULL;`;
+// await sql`ALTER TABLE users ADD COLUMN InActiveDate TIMESTAMP  NULL;`;
+// await sql`ALTER TABLE users ADD COLUMN UserLevel INT  NULL;`;
+// await sql`ALTER TABLE users ADD COLUMN UserType VARCHAR(50)  NULL;`;
+// await sql`ALTER TABLE users ADD COLUMN image_url VARCHAR(50)  NULL;`;
 
   const insertedUsers = await Promise.all(
     users.map(async (user) => {
@@ -114,6 +121,29 @@ async function seedRevenue() {
 }
 
 
+
+////////////////////////////// new table create/////////////////
+async function seedRole() {
+
+  await sql`
+  CREATE TABLE IF NOT EXISTS tblRoles (
+    ID SMALLSERIAL PRIMARY KEY,
+    Name VARCHAR(20) NOT NULL,
+    Description VARCHAR(100),
+    IsActive BOOLEAN,
+    InActiveDate TIMESTAMP,
+    InActiveBy VARCHAR(100)
+);
+`;
+// await sql`
+// ALTER TABLE tblRoles
+// ADD COLUMN CreatedAt TIMESTAMP DEFAULT NOW() NOT NULL;
+// `;
+
+}
+
+
+
 //////// this endpoint seedinf process
 export async function GET() {
   try {
@@ -129,6 +159,7 @@ export async function GET() {
   await seedCustomers();
   await seedInvoices();
   await seedRevenue();
+  await seedRole();
 });
 
 
@@ -143,6 +174,8 @@ export async function GET() {
 
 // async function main() {
 //   try {
+//     const res = await sql`SELECT NOW()`;
+//   console.log("✅ Connected to DB:", res);
 //     await sql.begin(async () => {
 //       await seedUsers();
 //       await seedCustomers();
@@ -158,4 +191,4 @@ export async function GET() {
 //   }
 // }
 
-// main();
+//  main();

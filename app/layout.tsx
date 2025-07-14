@@ -1,8 +1,9 @@
+'use client';
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
 import { Metadata } from 'next';
  
-export const metadata: Metadata = {
+ const metadata: Metadata = {
   title: {
     template: '%s | CMSF Dashboard',
     default: 'CMSF Software Management',
@@ -18,7 +19,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  console.log('Layout metadata:', metadata);
+ console.log('Layout metadata:', metadata);
 
   return (
     <html lang="en">

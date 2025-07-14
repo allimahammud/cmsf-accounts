@@ -1,0 +1,12 @@
+######## for seeding purpose ###########
+
+package.json add
+
+"type":"module"
+"seed": "ts-node-esm app/seed/route.ts"
+
+command
+npx ts-node-esm app/seed/route.ts
+
+#########seed script data place hole file add js#########
+import { invoices, customers, revenue, users } from '../lib/placeholder-data.js';
