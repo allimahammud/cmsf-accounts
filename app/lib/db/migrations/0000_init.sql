@@ -1,0 +1,44 @@
+-- CREATE TABLE "tblRoles" (
+-- 	"ID" "smallserial" PRIMARY KEY NOT NULL,
+-- 	"Name" varchar(20) NOT NULL,
+-- 	"Description" varchar(100),
+-- 	"IsActive" boolean,
+-- 	"InActiveDate" timestamp,
+-- 	"InActiveBy" varchar(100),
+-- 	"CreatedAt" timestamp DEFAULT now() NOT NULL
+-- );
+-- --> statement-breakpoint
+-- CREATE TABLE "customers" (
+-- 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+-- 	"name" varchar(255) NOT NULL,
+-- 	"email" varchar(255) NOT NULL,
+-- 	"image_url" varchar(255) NOT NULL
+-- );
+-- --> statement-breakpoint
+-- CREATE TABLE "invoices" (
+-- 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+-- 	"customer_id" uuid NOT NULL,
+-- 	"amount" integer NOT NULL,
+-- 	"status" varchar(255) NOT NULL,
+-- 	"date" date NOT NULL
+-- );
+-- --> statement-breakpoint
+-- CREATE TABLE "revenue" (
+-- 	"month" varchar(4) NOT NULL,
+-- 	"revenue" integer NOT NULL,
+-- 	CONSTRAINT "revenue_month_unique" UNIQUE("month")
+-- );
+-- --> statement-breakpoint
+-- CREATE TABLE "users" (
+-- 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+-- 	"name" varchar(255) NOT NULL,
+-- 	"email" text NOT NULL,
+-- 	"password" text NOT NULL,
+-- 	"phone" varchar(50),
+-- 	"computername" varchar(50),
+-- 	"inactivedate" timestamp,
+-- 	"userlevel" integer,
+-- 	"usertype" varchar(50),
+-- 	"image_url" varchar(50),
+-- 	CONSTRAINT "users_email_unique" UNIQUE("email")
+-- );

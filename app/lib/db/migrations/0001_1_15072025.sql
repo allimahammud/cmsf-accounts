@@ -1,0 +1,1 @@
+ALTER TABLE "revenue" ADD COLUMN "yearOf" integer;

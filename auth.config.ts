@@ -46,13 +46,63 @@
 
 
 
-import type { NextAuthConfig } from 'next-auth';
+import type { NextAuthConfig }  from 'next-auth';
+import type { DefaultJWT } from 'next-auth/jwt';
+import NextAuth, { type DefaultSession } from 'next-auth';
 
-export const authConfig = {
+declare module 'next-auth' {
+  interface Session extends DefaultSession {
+    user: {
+      id: string;
+      email: string;
+       name: string;
+    } & DefaultSession['user'];
+  }
+
+  interface User {
+    id?: string;
+    email?: string | null;
+    //type: UserType;
+     name: string;
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT extends DefaultJWT {
+    id: string;
+    email: string;
+     name: string;
+
+  }
+}
+
+export const authConfig:NextAuthConfig  = {
   pages: {
     signIn: '/login',
   },
+  session: {
+    strategy: 'jwt', // Enable JWT session
+  },
+  secret: process.env.AUTH_SECRET,
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id =  (user as { id: string }).id;;
+        token.email = (user as { email: string }).email;
+        token.name = (user as { name: string }).name;;
+       // token.role = user.role; // If your DB has roles
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+         session.user.id = (token as { id: string }).id;
+         session.user.email = token.email as string;
+         session.user.name = token.name as string;
+        // session.user.role = (token as { role?: string }).role;
+      }
+      return session;
+    },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');

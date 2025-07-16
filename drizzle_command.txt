@@ -1,0 +1,385 @@
+pnpm add drizzle-orm
+pnpm add -D drizzle-kit
+
+
+DB client হিসেবে:
+
+PostgreSQL হলে: pnpm add pg
+
+MySQL হলে: pnpm add mysql2
+
+SQLite হলে: pnpm add better-sqlite3
+
+
+2️⃣ drizzle.config.ts তৈরি করো
+ts
+Copy
+Edit
+import type { Config } from 'drizzle-kit';
+
+export default {
+  schema: './src/db/schema.ts',
+  out: './drizzle',
+  driver: 'pg', // অথবা 'mysql2', 'better-sqlite3'
+  dbCredentials: {
+    connectionString: process.env.DATABASE_URL!,
+  },
+} satisfies Config;
+3️⃣ Schema তৈরি করো (schema.ts)
+ts
+Copy
+Edit
+import { pgTable, serial, text, varchar } from 'drizzle-orm/pg-core';
+
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 256 }),
+  email: text('email').notNull(),
+});
+4️⃣ ডাটাবেস কানেকশন ফাইল (db.ts)
+ts
+Copy
+Edit
+import { drizzle } from 'drizzle-orm/node-postgres';
+import { Pool } from 'pg';
+import * as schema from './schema';
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL!,
+});
+
+export const db = drizzle(pool, { schema });
+
+pnpm drizzle-kit generate
+pnpm drizzle-kit migrate
+pnpm drizzle-kit push
+
+pnpm add dotenv
+
+pnpm add drizzle-orm pg
+pnpm add -D drizzle-kit dotenv
+
+
+
+
+Optional (but recommended):
+If you want automatic typing from your schema and use CLI-based migrations:
+
+Configure Drizzle via drizzle.config.ts:
+
+ts
+Copy
+Edit
+import type { Config } from 'drizzle-kit'
+
+export default {
+  schema: './app/db/schema.ts',   // Adjust if your schema file is elsewhere
+  out: './drizzle',
+  driver: 'pg',
+  dbCredentials: {
+    connectionString: process.env.DATABASE_URL!,
+  },
+} satisfies Config
+Add this to your scripts in package.json:
+
+json
+Copy
+Edit
+"drizzle:generate": "drizzle-kit generate",
+"drizzle:migrate": "drizzle-kit migrate"
+Install dotenv (if using .env):
+
+bash
+Copy
+Edit
+pnpm add dotenv
+
+
+########################################
+
+✅ Here's What You Should Add to Use Drizzle ORM
+🔧 1. Install Drizzle ORM & Drizzle Kit
+Run:
+
+bash
+Copy
+Edit
+pnpm add drizzle-orm pg
+pnpm add -D drizzle-kit dotenv
+This adds:
+
+drizzle-orm: The ORM
+
+pg: PostgreSQL driver
+
+drizzle-kit: The CLI for schema generation & migrations
+
+dotenv: For managing your DATABASE_URL and other env variables
+
+🛠 2. Update Your scripts (add these):
+json
+Copy
+Edit
+"scripts": {
+  "build": "next build",
+  "dev": "next dev --turbopack",
+  "start": "next start",
+  "lint": "next lint",
+  "seed": "ts-node-esm app/seed/route.ts",
+  "drizzle:generate": "drizzle-kit generate",
+  "drizzle:migrate": "drizzle-kit migrate"
+}
+📁 3. Create Required Files
+a. drizzle.config.ts
+ts
+Copy
+Edit
+import type { Config } from 'drizzle-kit'
+
+export default {
+  schema: './app/db/schema.ts',
+  out: './drizzle',
+  driver: 'pg',
+  dbCredentials: {
+    connectionString: process.env.DATABASE_URL!,
+  },
+} satisfies Config
+b. .env file
+env
+Copy
+Edit
+DATABASE_URL=postgres://user:password@localhost:5432/your_database
+c. app/db/schema.ts (example)
+ts
+Copy
+Edit
+import { pgTable, serial, text, varchar } from 'drizzle-orm/pg-core'
+
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 256 }),
+  email: text('email').notNull(),
+})
+✅ Final Installation Summary
+Add these to package.json:
+
+New Dependencies:
+json
+Copy
+Edit
+"drizzle-orm": "^0.36.4",
+"pg": "^8.11.1"
+New DevDependencies:
+json
+Copy
+Edit
+"drizzle-kit": "^0.31.1",
+"dotenv": "^16.4.5"
+
+
+######################################### 15-july-25##############################
+
+npx drizzle-kit init
+This will create a drizzle.config.ts file.
+
+import type { Config } from 'drizzle-kit';
+
+export default {
+  schema: './db/schema',             // path to your Drizzle pgTable definitions
+  out: './drizzle/migrations',       // where to generate migration files
+  driver: 'pg',
+  dbCredentials: {
+    host: 'localhost',
+    port: 5432,
+    user: 'your_user',
+    password: 'your_password',
+    database: 'your_db',
+  },
+} satisfies Config;
+
+2. Mark the existing schema as baseline
+Since Drizzle doesn't have snapshot, you can create an empty migration to establish a baseline:
+
+bash
+Copy
+Edit
+npx drizzle-kit migrate:prepare --name init
+Then manually open the generated SQL file in drizzle/migrations and remove any table-creating SQL, leaving it empty or just adding a comment like:
+
+sql
+Copy
+Edit
+-- Baseline migration: schema already created manually
+Then mark it as applied:
+
+
+npx drizzle-kit migrate
+✅ This tells Drizzle: “Don’t try to recreate these existing tables — just start tracking from here.”
+
+3. Now track schema changes normally
+After updating your pgTable files (schema), you can run:
+
+npx drizzle-kit generate
+This will create migration SQLs only for new changes (e.g., adding a column).
+
+Then apply:
+
+
+npx drizzle-kit migrate
+
+
+
+🧭 Step-by-Step: Migrate from Manual SQL to Drizzle
+✅ 1. Install Drizzle Packages
+
+npm install drizzle-orm drizzle-kit pg
+If you're using Next.js or a Node app, you're good to go.
+
+✅ 2. Initialize Drizzle
+
+npx drizzle-kit init
+This creates:
+
+drizzle.config.ts
+
+You can customize the config like:
+
+
+Edit
+// drizzle.config.ts
+import type { Config } from 'drizzle-kit';
+
+export default {
+  schema: './db/schema',            // folder where you'll define pgTable() schemas
+  out: './drizzle/migrations',      // where migration SQL files will be generated
+  driver: 'pg',
+  dbCredentials: {
+    host: 'localhost',
+    port: 5432,
+    user: 'your_user',
+    password: 'your_password',
+    database: 'your_db',
+  },
+} satisfies Config;
+✅ 3. Write Drizzle Schema Files (pgTable)
+Inside ./db/schema, define your existing tables using pgTable.
+
+Example for users table:
+
+
+// db/schema/users.ts
+import { pgTable, uuid, varchar, text } from 'drizzle-orm/pg-core';
+
+export const users = pgTable('users', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  name: varchar('name', { length: 255 }).notNull(),
+  email: text('email').notNull().unique(),
+  password: text('password').notNull(),
+});
+Repeat this for each table (invoices, customers, revenue, tblRoles, etc.)
+
+✅ 4. Create a "baseline" migration
+Since Drizzle can't snapshot the existing DB yet, we'll create a "fake" migration to tell Drizzle that these tables already exist:
+
+
+npx drizzle-kit migrate:prepare --name init
+Then edit the SQL file it generated:
+
+sql
+
+Edit
+-- drizzle/migrations/0000_init.sql
+-- Empty file since schema was manually created
+-- Starting migration tracking from here
+Then apply it:
+
+
+npx drizzle-kit migrate
+This records the migration in the __drizzle_migrations table.
+
+✅ 5. You’re Now Using Drizzle Fully!
+From now on:
+
+Modify your pgTable schema files to make changes
+
+Then run:
+
+
+npx drizzle-kit generate
+npx drizzle-kit migrate
+This will:
+
+Detect changes in your schema
+
+Generate and apply safe migrations
+
+✅ 6. (Optional) Use the ORM in Code
+You can now use Drizzle in code like:
+
+
+import { db } from '@/db';
+import { users } from '@/db/schema/users';
+
+const allUsers = await db.select().from(users);
+
+
+
+📦 Check Your Version
+
+npx drizzle-kit --version
+If you're using a newer version, migrate:prepare is no longer valid — it was used in older setups.
+
+✅ Typical Drizzle Setup
+If you're moving from manual SQL to Drizzle ORM, follow this:
+
+Install packages:
+
+npm install drizzle-orm @drizzle-kit/cli
+Initialize config:
+
+npx drizzle-kit init
+Set up your schema (e.g. schema.ts)
+
+import { pgTable, serial, varchar } from 'drizzle-orm/pg-core';
+
+export const users = pgTable('users', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 255 }),
+});
+Generate and run migration:
+
+npx drizzle-kit push
+npx drizzle-kit migrate
+
+
+✅ Final Tip: Validate Connection
+To test quickly:
+
+
+npx drizzle-kit introspect
+If it connects successfully, you’re fully set.
+
+you're still getting the SELF_SIGNED_CERT_IN_CHAIN error, which means Node.js is rejecting Supabase's SSL certificate, and the Drizzle config isn’t correctly telling Node to allow it.
+
+Let’s fix this step-by-step — this time forcing the SSL trust override at runtime.
+
+✅ Step 1: Use NODE_TLS_REJECT_UNAUTHORIZED=0
+Try running your migration command like this:
+
+
+NODE_TLS_REJECT_UNAUTHORIZED=0 npx drizzle-kit migrate
+
+Then make sure your .env points to the non-pooled Supabase connection (port 5432):
+
+env
+
+DATABASE_URL="postgres://postgres.xwhqucsfurjvvziltblv:U0l6Z8wWlCeROOc0@aws-0-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require"
+✅ Step 4: (Optional - Permanent Trust Fix)
+If you're doing this often, you can add a script in package.json:
+
+json
+Copy
+Edit
+"scripts": {
+  "migrate": "NODE_TLS_REJECT_UNAUTHORIZED=0 drizzle-kit migrate"
+}
