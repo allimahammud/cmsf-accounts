@@ -83,9 +83,9 @@ export const UserRoles = pgTable('tblUserRoles', {
 
 export type UserRole = InferSelectModel<typeof UserRoles>;
 
-export const UserMenus = pgTable('tblUserMenus', {
+export const RoleMenus = pgTable('tblRoleMenus', {
   id: smallserial('ID').primaryKey(),
-  userid: smallserial('userID'),
+  roleid: smallserial('roleID'),
   menuid: smallserial('menuID'),
   
   isActive: boolean('IsActive'),
@@ -94,4 +94,4 @@ export const UserMenus = pgTable('tblUserMenus', {
   createdAt: timestamp('CreatedAt').notNull().defaultNow(),
 });
 
-export type UserMenu = InferSelectModel<typeof UserMenus>;
+export type UserMenu = InferSelectModel<typeof RoleMenus>;

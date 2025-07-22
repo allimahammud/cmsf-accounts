@@ -9,6 +9,8 @@ import {
   CustomerAllField,
 } from './definitions';
 import { formatCurrency } from './utils';
+import { UUID } from 'node:crypto';
+
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require', prepare: false });
 
@@ -236,5 +238,23 @@ export async function fetchFilteredCustomers(query: string) {
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch customer table.');
+  }
+}
+
+export async function fetchUserWiseMenu(id: UUID) {
+  try {
+    const data = await sql`
+          SELECT * FROM get_menus_by_user(${id});
+                    `;
+
+    // if (error) {
+    //   console.error('RPC Error:', error);
+    //   throw new Error('Failed to fetch menu data.');
+    // }
+
+    return data;
+  } catch (err) {
+    console.error('Function Error:', err);
+    throw new Error('Failed to fetch user-wise menu.');
   }
 }
