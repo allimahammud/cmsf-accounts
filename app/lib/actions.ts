@@ -4,7 +4,7 @@ import { z } from 'zod';
  import postgres from 'postgres';
  import { revalidatePath } from 'next/cache';
  import { redirect } from 'next/navigation';
- import { signIn } from '@/app/config/auth';
+ import { signIn } from '@/app/(auth)/auth';
 import { AuthError } from 'next-auth';
 //import { authConfig } from '@/auth.config';
  
@@ -164,3 +164,38 @@ export async function authenticate(
     throw error;
   }
 }
+
+const authFormSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6),
+});
+export interface LoginActionState {
+  status: 'idle' | 'in_progress' | 'success' | 'failed' | 'invalid_data';
+}
+
+export const login = async (
+  _: LoginActionState,
+  formData: FormData,
+): Promise<LoginActionState> => {
+  try {
+    const validatedData = authFormSchema.parse({
+      email: formData.get('email'),
+      password: formData.get('password'),
+    });
+
+    await signIn('credentials', {
+      email: validatedData.email,
+      password: validatedData.password,
+      redirect: false,
+      // callbackUrl: '/dashboard/overview',
+    });
+console.log(_);
+    return { status: 'success' };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return { status: 'invalid_data' };
+    }
+
+    return { status: 'failed' };
+  }
+};

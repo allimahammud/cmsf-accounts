@@ -2,7 +2,7 @@
 import '@/app/ui/global.css';
 import { inter } from '@/app/ui/fonts';
 import { Metadata } from 'next';
- 
+ import { SessionProvider } from 'next-auth/react';
  const metadata: Metadata = {
   title: {
     template: '%s | CMSF Dashboard',
@@ -22,8 +22,8 @@ export default function RootLayout({
  console.log('Layout metadata:', metadata);
 
   return (
-    <html lang="en">
-       <body className={`${inter.className} antialiased`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+       <body className={`${inter.className} antialiased`}  suppressHydrationWarning>  <SessionProvider>{children}</SessionProvider></body>
     </html>
   );
 }

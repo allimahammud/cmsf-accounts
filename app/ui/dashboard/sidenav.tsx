@@ -3,7 +3,7 @@ import Link from 'next/link';
 import NavMenu from './nav-menu';
 import AcmeLogo from '@/app/ui/acme-logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
-import { signOut } from '@/app/config/auth';
+import { signOut } from '@/app/(auth)/auth';
 import {menuItems} from '@/app/lib/menu'
 export default function SideNav() {
   return (
