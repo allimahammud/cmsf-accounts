@@ -18,7 +18,7 @@ import { Button } from '@/app/ui/button';
 //import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect,useRef } from 'react';
-//import { toast } from '@/components/toast';
+import { toast } from '@/app/ui/toast';
 
 //import { AuthForm } from '@/components/auth-form';
 //import { SubmitButton } from '@/components/submit-button';
@@ -61,23 +61,23 @@ export default function LoginPage() {
   const updateSessionRef = useRef(updateSession);
 const routerRef = useRef(router);
 const errorMessage="";
-console.log(state.status,"outside");
+//console.log(state.status,"outside");
   useEffect(() => {
     if (state.status === 'failed') {
-      // toast({
-      //   type: 'error',
-      //   description: 'Invalid credentials!',
-      // });
-      console.log(state.status,"failed");
+      toast({
+        type: 'error',
+        description: 'Invalid credentials!',
+      });
+      //console.log(state.status,"failed");
     } else if (state.status === 'invalid_data') {
-      // toast({
-      //   type: 'error',
-      //   description: 'Failed validating your submission!',
-      // });
-      console.log(state.status,"invalid");
+      toast({
+        type: 'error',
+        description: 'Failed validating your submission!',
+      });
+      //pnconsole.log(state.status,"invalid");
     } else if (state.status === 'success') {
     //  setIsSuccessful(true);
-    console.log(state.status,"success");
+    //console.log(state.status,"success");
       updateSessionRef.current();
     routerRef.current.refresh();
     }
@@ -100,7 +100,7 @@ console.log(state.status,"outside");
           </div>
         </div>
         
-         <LoginForm action={formAction} >
+         <LoginForm action={formAction}  >
            {/* <input type="hidden" name="redirectTo" value={callbackUrl ?? ''} /> */}
         <Button className="mt-4 w-full" >
           Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />

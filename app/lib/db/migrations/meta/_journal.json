@@ -15,6 +15,20 @@
       "when": 1752564946641,
       "tag": "0001_1_15072025",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1753158825463,
+      "tag": "0002_tense_talon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1753159803546,
+      "tag": "0003_tan_hex",
+      "breakpoints": true
     }
   ]
 }

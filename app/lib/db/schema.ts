@@ -26,6 +26,7 @@ export const user = pgTable('users', {
   userLevel: integer('userlevel'),
   userType: varchar('usertype', { length: 50 }),
   imageUrl: varchar('image_url', { length: 50 }),
+   isActive: boolean('IsActive'),
 });
 
 export type User = InferSelectModel<typeof user>;
@@ -68,3 +69,29 @@ export const Roles = pgTable('tblRoles', {
 });
 
 export type Role = InferSelectModel<typeof Roles>;
+
+export const UserRoles = pgTable('tblUserRoles', {
+  id: smallserial('ID').primaryKey(),
+  userid: uuid('userID'),
+  roleid: smallserial('roleID'),
+  
+  isActive: boolean('IsActive'),
+  inActiveDate: timestamp('InActiveDate'),
+  inActiveBy: varchar('InActiveBy', { length: 100 }),
+  createdAt: timestamp('CreatedAt').notNull().defaultNow(),
+});
+
+export type UserRole = InferSelectModel<typeof UserRoles>;
+
+export const UserMenus = pgTable('tblUserMenus', {
+  id: smallserial('ID').primaryKey(),
+  userid: smallserial('userID'),
+  menuid: smallserial('menuID'),
+  
+  isActive: boolean('IsActive'),
+  inActiveDate: timestamp('InActiveDate'),
+  inActiveBy: varchar('InActiveBy', { length: 100 }),
+  createdAt: timestamp('CreatedAt').notNull().defaultNow(),
+});
+
+export type UserMenu = InferSelectModel<typeof UserMenus>;
