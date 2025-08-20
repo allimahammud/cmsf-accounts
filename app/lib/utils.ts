@@ -8,10 +8,16 @@ export const formatCurrency = (amount: number) => {
     currency: 'USD',
   });
 };
-
+export const formatCurrencyBDT = (amount: number) => {
+  return new Intl.NumberFormat('en-BD', {
+    style: 'currency',
+    currency: 'BDT',
+    minimumFractionDigits: 2,
+  }).format(amount);
+};
 export const formatDateToLocal = (
   dateStr: string,
-  locale: string = 'en-US',
+  locale: string = 'en-US'
 ) => {
   const date = new Date(dateStr);
   const options: Intl.DateTimeFormatOptions = {
@@ -72,4 +78,3 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
 export function tmcn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-

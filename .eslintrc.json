@@ -1,6 +1,17 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript"
-  ]
+  "extends": ["next/core-web-vitals", "next/typescript"]
 }
+
+
+// .eslintrc.js
+// module.exports = {
+//   extends: [
+//     'next',
+//     'next/core-web-vitals',
+//     'plugin:prettier/recommended' // Enables eslint-plugin-prettier and displays Prettier errors as ESLint errors
+//   ],
+//   rules: {
+//     // Optional custom rules
+//     'prettier/prettier': ['error', { singleQuote: true, semi: true }],
+//   },
+// };

@@ -16,7 +16,4 @@ export default defineConfig({
       rejectUnauthorized: false, // Allow self-signed certs from Supabase
     },
   },
-  
 });
-
-

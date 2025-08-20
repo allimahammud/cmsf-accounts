@@ -1,14 +1,17 @@
 'use server';
- 
+
 import { z } from 'zod';
- import postgres from 'postgres';
- import { revalidatePath } from 'next/cache';
- import { redirect } from 'next/navigation';
- import { signIn } from '@/app/(auth)/auth';
+import postgres from 'postgres';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+import { signIn } from '@/app/(auth)/auth';
 import { AuthError } from 'next-auth';
 //import { authConfig } from '@/auth.config';
- 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require', prepare: false });
+
+const sql = postgres(process.env.POSTGRES_URL!, {
+  ssl: 'require',
+  prepare: false,
+});
 
 // const FormSchema = z.object({
 //   id: z.string(),
@@ -17,8 +20,6 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require', prepare: false
 //   status: z.enum(['pending', 'paid']),
 //   date: z.string(),
 // });
-
-
 
 const FormSchema = z.object({
   id: z.string(),
@@ -47,26 +48,25 @@ export type State = {
   };
   message?: string | null;
 };
- 
+
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 const UpdateInvoice = FormSchema.omit({ id: true, date: true });
 
 export async function updateInvoice(id: string, formData: FormData) {
-
   const { customerId, amount, status } = UpdateInvoice.parse({
     customerId: formData.get('customerId'),
     amount: formData.get('amount'),
     status: formData.get('status'),
   });
- 
+
   const amountInCents = amount * 100;
- 
+
   await sql`
     UPDATE invoices
     SET customer_id = ${customerId}, amount = ${amountInCents}, status = ${status}
     WHERE id = ${id}
   `;
- 
+
   revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
 }
@@ -88,10 +88,10 @@ export async function updateInvoice(id: string, formData: FormData) {
 //   redirect('/dashboard/invoices');
 // }
 
-
-export async function createInvoice( prevState: State,
+export async function createInvoice(
+  prevState: State,
   formData: FormData
-): Promise<State>  {
+): Promise<State> {
   // Validate form using Zod
   debugger;
   const validatedFields = CreateInvoice.safeParse({
@@ -99,25 +99,25 @@ export async function createInvoice( prevState: State,
     amount: formData.get('amount'),
     status: formData.get('status'),
   });
- 
+
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       values: {
-      customerId: String(formData.get('customerId') ?? ''),
-      amount: String(formData.get('amount') ?? ''),
-      status: String(formData.get('status') ?? ''),
-    },
+        customerId: String(formData.get('customerId') ?? ''),
+        amount: String(formData.get('amount') ?? ''),
+        status: String(formData.get('status') ?? ''),
+      },
       message: 'Missing Fields. Failed to Create Invoice.',
     };
   }
- 
+
   // Prepare data for insertion into the database
   const { customerId, amount, status } = validatedFields.data;
-  const amountInCents = amount * 100;
+  const amountInCents = amount;
   const date = new Date().toISOString().split('T')[0];
- 
+
   // Insert data into the database
   try {
     await sql`
@@ -130,25 +130,22 @@ export async function createInvoice( prevState: State,
 
     return {
       message: 'Database Error: Failed to Create Invoice.',
-      
     };
   }
- 
+
   // Revalidate the cache for the invoices page and redirect the user.
   revalidatePath('/dashboard/invoices');
   redirect('/dashboard/invoices');
 }
-
 
 export async function deleteInvoice(id: string) {
   await sql`DELETE FROM invoices WHERE id = ${id}`;
   revalidatePath('/dashboard/invoices');
 }
 
-
 export async function authenticate(
   prevState: string | undefined,
-  formData: FormData,
+  formData: FormData
 ) {
   try {
     await signIn('credentials', formData);
@@ -175,7 +172,7 @@ export interface LoginActionState {
 
 export const login = async (
   _: LoginActionState,
-  formData: FormData,
+  formData: FormData
 ): Promise<LoginActionState> => {
   try {
     const validatedData = authFormSchema.parse({
@@ -189,7 +186,7 @@ export const login = async (
       redirect: false,
       // callbackUrl: '/dashboard/overview',
     });
-console.log(_);
+    //console.log(_);
     return { status: 'success' };
   } catch (error) {
     if (error instanceof z.ZodError) {

@@ -8,18 +8,18 @@ import { fetchFilteredCustomers } from '@/app/lib/data';
 // } from '@/app/lib/definitions';
 
 export default async function CustomersTable({
-//   customers,
-// }: {
-//   customers: FormattedCustomersTable[];
-// }) {
- query,
+  //   customers,
+  // }: {
+  //   customers: FormattedCustomersTable[];
+  // }) {
+  query,
   //currentPage,
 }: {
   query: string;
- // currentPage: number;
+  // currentPage: number;
 }) {
   const customers = await fetchFilteredCustomers(query);
- console.log('data', customers);
+  console.log('data', customers);
 
   return (
     <div className="w-full">

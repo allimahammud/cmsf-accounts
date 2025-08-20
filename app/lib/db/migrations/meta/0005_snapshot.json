@@ -228,9 +228,7 @@
         "revenue_month_unique": {
           "name": "revenue_month_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "month"
-          ]
+          "columns": ["month"]
         }
       },
       "policies": {},
@@ -316,9 +314,7 @@
         "users_email_unique": {
           "name": "users_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {},

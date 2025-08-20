@@ -8,11 +8,14 @@ import {
   Revenue,
   CustomerAllField,
 } from './definitions';
-import { formatCurrency } from './utils';
-import { UUID } from 'node:crypto';
+import { formatCurrencyBDT } from './utils';
+//import { UUID } from 'node:crypto';
+// formatCurrency,
 
-
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require', prepare: false });
+const sql = postgres(process.env.POSTGRES_URL!, {
+  ssl: 'require',
+  prepare: false,
+});
 
 export async function fetchRevenue() {
   try {
@@ -44,7 +47,7 @@ export async function fetchLatestInvoices() {
 
     const latestInvoices = data.map((invoice) => ({
       ...invoice,
-      amount: formatCurrency(invoice.amount),
+      amount: formatCurrencyBDT(invoice.amount),
     }));
     return latestInvoices;
   } catch (error) {
@@ -73,8 +76,8 @@ export async function fetchCardData() {
 
     const numberOfInvoices = Number(data[0][0].count ?? '0');
     const numberOfCustomers = Number(data[1][0].count ?? '0');
-    const totalPaidInvoices = formatCurrency(data[2][0].paid ?? '0');
-    const totalPendingInvoices = formatCurrency(data[2][0].pending ?? '0');
+    const totalPaidInvoices = formatCurrencyBDT(data[2][0].paid ?? '0');
+    const totalPendingInvoices = formatCurrencyBDT(data[2][0].pending ?? '0');
 
     return {
       numberOfCustomers,
@@ -91,7 +94,7 @@ export async function fetchCardData() {
 const ITEMS_PER_PAGE = 6;
 export async function fetchFilteredInvoices(
   query: string,
-  currentPage: number,
+  currentPage: number
 ) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -230,8 +233,8 @@ export async function fetchFilteredCustomers(query: string) {
 
     const customers = data.map((customer) => ({
       ...customer,
-      total_pending: formatCurrency(customer.total_pending),
-      total_paid: formatCurrency(customer.total_paid),
+      total_pending: formatCurrencyBDT(customer.total_pending),
+      total_paid: formatCurrencyBDT(customer.total_paid),
     }));
 
     return customers;
@@ -241,10 +244,10 @@ export async function fetchFilteredCustomers(query: string) {
   }
 }
 
-export async function fetchUserWiseMenu(id: UUID) {
+export async function fetchUserWiseMenu(id: string) {
   try {
     const data = await sql`
-          SELECT * FROM get_menus_by_user(${id});
+          SELECT * FROM get_menulist_by_user(${id});
                     `;
 
     // if (error) {

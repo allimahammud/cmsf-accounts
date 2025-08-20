@@ -1,15 +1,14 @@
 // import NextAuth from 'next-auth';
 // import { authConfig } from './auth.config';
- 
+
 // export default NextAuth(authConfig).auth;
- 
+
 // export const config = {
 //   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
 //   matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
 // };
 
-
-// 
+//
 //ali
 // import NextAuth from 'next-auth';
 // import { authConfig } from './auth.config';
@@ -40,7 +39,6 @@
 //   matcher: ['/dashboard/:path*'],
 // };
 
-
 // import { authMiddleware } from 'next-auth/middleware';
 
 // export default authMiddleware;
@@ -58,8 +56,6 @@
 // export const config = {
 //   matcher: ['/dashboard/:path*'],
 // };
-
-
 
 // import { NextResponse, type NextRequest } from 'next/server';
 // import { getToken } from 'next-auth/jwt';
@@ -121,8 +117,6 @@
 //   ],
 // };
 
-
-
 import { NextResponse, type NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
@@ -146,7 +140,7 @@ export async function middleware(request: NextRequest) {
     secureCookie: process.env.NODE_ENV !== 'development',
   });
 
-   if (pathname === '/') {
+  if (pathname === '/') {
     return NextResponse.next();
   }
   console.log(token);
@@ -156,10 +150,12 @@ export async function middleware(request: NextRequest) {
     if (pathname === '/login' || pathname === '/register') {
       return NextResponse.next();
     }
-console.log(pathname);
+    console.log(pathname);
     // Redirect unauthenticated users to login page
     const redirectUrl = encodeURIComponent(request.nextUrl.pathname);
-    return NextResponse.redirect(new URL(`/login?redirectUrl=${redirectUrl}`, origin));
+    return NextResponse.redirect(
+      new URL(`/login?redirectUrl=${redirectUrl}`, origin)
+    );
   }
 
   // User is logged in and tries to access /login or /register

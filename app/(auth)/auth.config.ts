@@ -21,9 +21,8 @@
 // export const GET = handlers.GET;
 // export const POST = handlers.POST;
 
-
 // import type { NextAuthConfig } from 'next-auth';
- 
+
 // export const authConfig = {
 //   pages: {
 //     signIn: '/login',
@@ -43,7 +42,6 @@
 //   },
 //   providers: [], // Add providers with an empty array for now
 // } satisfies NextAuthConfig;
-
 
 /////////////////////closd 21-jul-25////////////////
 // import type { NextAuthConfig }  from 'next-auth';
@@ -119,7 +117,6 @@
 //   providers: [], // You need to add actual providers here, e.g., GitHub, Google, etc.
 // } satisfies NextAuthConfig;
 
-
 import type { NextAuthConfig } from 'next-auth';
 //console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET);
 
@@ -128,9 +125,9 @@ export const authConfig = {
     signIn: '/login',
     newUser: '/',
   },
-   secret: process.env.NEXTAUTH_SECRET,
-    session: {
-    strategy: "jwt", // default
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: 'jwt', // default
   },
   providers: [
     // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
@@ -138,6 +135,3 @@ export const authConfig = {
   ],
   callbacks: {},
 } satisfies NextAuthConfig;
-
-
-

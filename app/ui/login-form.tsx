@@ -1,5 +1,5 @@
 'use client';
- 
+
 import { lusitana } from '@/app/ui/fonts';
 import {
   AtSymbolIcon,
@@ -11,23 +11,23 @@ import {
 //import { useActionState } from 'react';
 //import { authenticate } from '@/app/lib/actions';
 //import { useSearchParams } from 'next/navigation';
- ///import Form from 'next/form';
+///import Form from 'next/form';
 
 //import { Input } from './ui/input';
 //import { Label } from './ui/label';
-export default function LoginForm( {
+export default function LoginForm({
   action,
   children,
- // defaultEmail = '',
+  // defaultEmail = '',
 }: {
   action: NonNullable<
     string | ((formData: FormData) => void | Promise<void>) | undefined
   >;
   children: React.ReactNode;
- // defaultEmail?: string;
+  // defaultEmail?: string;
 }) {
-  console.log(children,"action");
- 
+ // console.log(children, 'action');
+
   return (
     <form action={action} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -76,9 +76,8 @@ export default function LoginForm( {
             </div>
           </div>
         </div>
-       
       </div>
-        {children}
+      {children}
     </form>
   );
 }

@@ -6,14 +6,13 @@ import {
   //json,
   uuid,
   text,
- // primaryKey,
- // foreignKey,
-  boolean,integer,date ,smallserial
+  // primaryKey,
+  // foreignKey,
+  boolean,
+  integer,
+  date,
+  smallserial,
 } from 'drizzle-orm/pg-core';
-
-
-
-
 
 export const user = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(), // uuid_generate_v4()
@@ -26,7 +25,7 @@ export const user = pgTable('users', {
   userLevel: integer('userlevel'),
   userType: varchar('usertype', { length: 50 }),
   imageUrl: varchar('image_url', { length: 50 }),
-   isActive: boolean('IsActive'),
+  isActive: boolean('IsActive'),
 });
 
 export type User = InferSelectModel<typeof user>;
@@ -53,7 +52,7 @@ export type Customer = InferSelectModel<typeof customers>;
 export const revenue = pgTable('revenue', {
   month: varchar('month', { length: 4 }).notNull().unique(),
   revenue: integer('revenue').notNull(),
-  yearOf: integer('yearOf')
+  yearOf: integer('yearOf'),
 });
 
 export type Revenue = InferSelectModel<typeof revenue>;
@@ -74,7 +73,7 @@ export const UserRoles = pgTable('tblUserRoles', {
   id: smallserial('ID').primaryKey(),
   userid: uuid('userID'),
   roleid: smallserial('roleID'),
-  
+
   isActive: boolean('IsActive'),
   inActiveDate: timestamp('InActiveDate'),
   inActiveBy: varchar('InActiveBy', { length: 100 }),
@@ -87,7 +86,7 @@ export const RoleMenus = pgTable('tblRoleMenus', {
   id: smallserial('ID').primaryKey(),
   roleid: smallserial('roleID'),
   menuid: smallserial('menuID'),
-  
+
   isActive: boolean('IsActive'),
   inActiveDate: timestamp('InActiveDate'),
   inActiveBy: varchar('InActiveBy', { length: 100 }),

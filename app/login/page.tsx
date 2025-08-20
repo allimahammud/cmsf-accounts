@@ -2,9 +2,9 @@
 import AcmeLogo from '@/app/ui/acme-logo';
 import LoginForm from '@/app/ui/login-form';
 //import { Suspense } from 'react';
- //import { lusitana } from '@/app/ui/fonts';
+//import { lusitana } from '@/app/ui/fonts';
 import {
-//  AtSymbolIcon,
+  //  AtSymbolIcon,
   //KeyIcon,
   ExclamationCircleIcon,
 } from '@heroicons/react/24/outline';
@@ -13,11 +13,11 @@ import { Button } from '@/app/ui/button';
 //import { useActionState } from 'react';
 //import { authenticate } from '@/app/lib/actions';
 //import { useSearchParams } from 'next/navigation';
- //import Form from 'next/form';
+//import Form from 'next/form';
 
 //import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useActionState, useEffect,useRef } from 'react';
+import { useActionState, useEffect, useRef } from 'react';
 import { toast } from '@/app/ui/toast';
 
 //import { AuthForm } from '@/components/auth-form';
@@ -26,26 +26,22 @@ import { toast } from '@/app/ui/toast';
 import { login, type LoginActionState } from '@/app/lib/actions';
 import { useSession } from 'next-auth/react';
 
-
 export default function LoginPage() {
-
-
-
-//const searchParams = useSearchParams();
-  //local 
+  //const searchParams = useSearchParams();
+  //local
   //const callbackUrl = searchParams.get('callbackUrl') || '/dashboard/overview';
 
-//   const safeRedirect = searchParams.get('callbackUrl');
+  //   const safeRedirect = searchParams.get('callbackUrl');
 
-// // Fallback to dashboard homepage only if callbackUrl is empty or unsafe
-//   const callbackUrl = safeRedirect?.startsWith('/') ? safeRedirect : '/dashboard/overview';
-//   console.log('main',callbackUrl);
-//   const [errorMessage, formAction, isPending] = useActionState(
-//     authenticate,
-//     undefined,
-//   );
+  // // Fallback to dashboard homepage only if callbackUrl is empty or unsafe
+  //   const callbackUrl = safeRedirect?.startsWith('/') ? safeRedirect : '/dashboard/overview';
+  //   console.log('main',callbackUrl);
+  //   const [errorMessage, formAction, isPending] = useActionState(
+  //     authenticate,
+  //     undefined,
+  //   );
 
- const router = useRouter();
+  const router = useRouter();
 
   //const [email, setEmail] = useState('');
   //const [isSuccessful, setIsSuccessful] = useState(false);
@@ -54,14 +50,14 @@ export default function LoginPage() {
     login,
     {
       status: 'idle',
-    },
+    }
   );
 
   const { update: updateSession } = useSession();
   const updateSessionRef = useRef(updateSession);
-const routerRef = useRef(router);
-const errorMessage="";
-//console.log(state.status,"outside");
+  const routerRef = useRef(router);
+  const errorMessage = '';
+  //console.log(state.status,"outside");
   useEffect(() => {
     if (state.status === 'failed') {
       toast({
@@ -76,10 +72,10 @@ const errorMessage="";
       });
       //pnconsole.log(state.status,"invalid");
     } else if (state.status === 'success') {
-    //  setIsSuccessful(true);
-    //console.log(state.status,"success");
+      //  setIsSuccessful(true);
+      //console.log(state.status,"success");
       updateSessionRef.current();
-    routerRef.current.refresh();
+      routerRef.current.refresh();
     }
   }, [state.status]);
 
@@ -87,9 +83,6 @@ const errorMessage="";
   //   setEmail(formData.get('email') as string);
   //   formAction(formData);
   // };
-
-
-
 
   return (
     <main className="flex items-center justify-center md:h-screen">
@@ -99,26 +92,25 @@ const errorMessage="";
             <AcmeLogo />
           </div>
         </div>
-        
-         <LoginForm action={formAction}  >
-           {/* <input type="hidden" name="redirectTo" value={callbackUrl ?? ''} /> */}
-        <Button className="mt-4 w-full" >
-          Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
-        </Button>
-        <div
-          className="flex h-8 items-end space-x-1"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {errorMessage && (
-            <>
-              <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-              <p className="text-sm text-red-500">{errorMessage}</p>
-            </>
-          )}
-        </div>
+
+        <LoginForm action={formAction}>
+          {/* <input type="hidden" name="redirectTo" value={callbackUrl ?? ''} /> */}
+          <Button className="mt-4 w-full">
+            Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+          </Button>
+          <div
+            className="flex h-8 items-end space-x-1"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {errorMessage && (
+              <>
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+                <p className="text-sm text-red-500">{errorMessage}</p>
+              </>
+            )}
+          </div>
         </LoginForm>
-        
       </div>
     </main>
   );

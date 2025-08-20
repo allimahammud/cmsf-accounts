@@ -39,7 +39,6 @@
 //   );
 // }
 
-
 // "use client";
 
 // import Link from "next/link";
@@ -79,7 +78,7 @@
 //             <li key={item.id}>
 //               <div className={`menu-item ${isActive ? "active" : ""}`}>
 //                 {/* <Link href={item.path}>{item.label}
-                
+
 //                 </Link> */}
 //                 <Link
 //             key={item.label}
@@ -97,7 +96,6 @@
 //             <LinkIcon className="w-6" />
 //             <p className="hidden md:block">{item.label}</p>
 //           </Link>
-                
 
 //                 {item.children && (
 //                   <button
@@ -187,11 +185,25 @@
 // }
 
 // components/NavMenu.tsx
-"use client";
+'use client';
+//import Cookies from 'js-cookie';
+//import { useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
+//import { fetchUserWiseMenu } from '@/app/lib/data';
+//import { cookies } from 'next/headers';
+//import { getToken } from 'next-auth/jwt';
+//import { NextRequest } from 'next/server';
+import { useSession } from 'next-auth/react';
+//const secret = process.env.NEXTAUTH_SECRET;
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+interface UserMenuPermission {
+  id: string;
+  name: string;
+  email: string;
+  menuid: number;
+}
 
 export interface NavItem {
   id: number;
@@ -214,39 +226,116 @@ export default function NavMenu({ items, level = 0 }: MenuProps) {
       prev.includes(id) ? prev.filter((mid) => mid !== id) : [...prev, id]
     );
   };
+  // const cookieStore = cookies();
+  // const userId = await (await cookieStore).get('id')?.value;
+  // console.log("userID",userId);
 
+  // use client';
+
+  // export default function ExampleComponent() {
+  //   useEffect(() => {
+  //     const userId = Cookies.get('userId');
+  //     console.log('Client-side userId:', userId);
+  //   }, []);
+
+  //   return <div>Check console for user ID</div>;
+  // }
+
+  //  const userId = Cookies.get('id');
+
+  //const token = localStorage.getItem('token');
+
+  // const tokenn =  getToken({  req: NextRequest, secret });
+
+  //  const userIdd = tokenn.id;
+  // console.log('Client-side userId:', {session.user?.id});
+  //const loginID="";
+  // const { loginId, password } = await req.json();
+
+  const { data: session, status } = useSession();
+  console.log('Client-side userId:', session?.user.id);
+  const [menuList, setMenuList] = useState<UserMenuPermission[]>([]);
+
+  //const du= session?.user.id;
+  //if (!du) return;
+  //  const loadMenus = async () => {
+  //       const data = await fetchUserWiseMenu( du);
+  //       console.log('Client-side data:', data);
+  //     };
+
+  // const loadMenus=async () => {
+  //             'use server';
+  //             const data = await fetchUserWiseMenu( du);
+  //             console.log('Client-side data:', data);
+  //           }
+
+  useEffect(() => {
+    if (status !== 'authenticated' || !session?.user?.id) return;
+    const fetchMenu = async () => {
+      // if (!session?.user?.id) return;
+
+      try {
+        const res = await fetch('/api/menus', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userId: session.user.id }),
+        });
+
+        if (!res.ok) throw new Error('Menu fetch failed');
+
+
+        const data = await res.json();
+        if (!data) {
+    throw new Error('❌ Menu data failed to load');
+  }
+        setMenuList(data);
+      } catch (err) {
+        console.error('Menu fetch error:', err);
+      }
+    };
+
+    fetchMenu();
+  }, [session?.user?.id, status]);
+
+  console.log('menu', menuList);
+
+  // const menulist =  fetchUserWiseMenu(session?.user.id);
   return (
     <ul className={`menu level-${level}`}>
       {items.map((item) => {
-        const isActive = pathname === item.path;
-        const isOpen = openMenus.includes(item.id);
-        const hasChildren = item.children && item.children.length > 0;
+        const permittedMenu = menuList.some((menu) => menu.menuid === item.id);
 
-        return (
-          <li key={item.id} className={isActive ? "active" : ""}>
-            <div className="menu-item">
-              <Link href={item.path}>{item.label}</Link>
-              {hasChildren && (
-                <button
-                  onClick={() => toggleMenu(item.id)}
-                  aria-label="Toggle submenu"
-                >
-                  {isOpen ? "▲" : "▼"}
-                </button>
+        if (permittedMenu) {
+          const isActive = pathname === item.path;
+          const isOpen = openMenus.includes(item.id);
+          const hasChildren = item.children && item.children.length > 0;
+
+          return (
+            <li key={item.id} className={isActive ? 'active' : ''}>
+              <div className="menu-item">
+                <Link href={item.path}>{item.label}</Link>
+                {hasChildren && (
+                  <button
+                    onClick={() => toggleMenu(item.id)}
+                    aria-label="Toggle submenu"
+                  >
+                    {isOpen ? '▲' : '▼'}
+                  </button>
+                )}
+              </div>
+
+              {hasChildren && isOpen && (
+                <NavMenu items={item.children!} level={level + 1} />
               )}
-            </div>
-
-            {hasChildren && isOpen && (
-              <NavMenu items={item.children!} level={level + 1} />
-            )}
-          </li>
-        );
+            </li>
+          );
+        }
       })}
 
       <style jsx>{`
         .menu {
           list-style: none;
-          padding-left: ${level === 0 ? "0px" : "16px"};
+          padding-left: ${level === 0 ? '0px' : '16px'};
           margin: 0;
         }
 

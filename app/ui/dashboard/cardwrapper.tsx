@@ -7,7 +7,7 @@ export default async function CardWrapper() {
     totalPaidInvoices,
     totalPendingInvoices,
   } = await fetchCardData();
- 
+
   return (
     <>
       <Card title="Collected" value={totalPaidInvoices} type="collected" />
