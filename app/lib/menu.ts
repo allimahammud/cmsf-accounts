@@ -13,24 +13,6 @@ export const menuItems: NavItem[] = [
   {
     id: 3,
     label: 'Customers',
-<<<<<<< HEAD
-    path: '/dashboard/customers',
-    children: [
-      {
-        id: 4,
-        label: 'Customer Entry',
-        path: '/dashboard/customers/entry',
-        children: [
-          {
-            id: 7,
-            label: 'Customer List',
-            path: '/dashboard/customers/entry/list',
-          },
-        ],
-      },
-      { id: 5, label: 'Customer Edit', path: '/dashboard/customers/edit' },
-      { id: 8, label: 'Customer list', path: '/dashboard/customers' },
-=======
     path: '#',
     children: [
       {
@@ -54,21 +36,17 @@ export const menuItems: NavItem[] = [
 
       { id: 5, label: 'Customer Edit', path: '/dashboard/customers/edit' },
       { id: 8, label: 'Customer List', path: '/dashboard/customers' },
->>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)
     ],
   },
   {
     id: 6,
     label: 'User',
     path: '/dashboard/user',
-<<<<<<< HEAD
-=======
   },
    {
     id: 11,
     label: 'Bank',
     path: '/dashboard/bank',
->>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)
   },
 ];
 

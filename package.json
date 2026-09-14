@@ -34,11 +34,11 @@
     "drizzle-orm": "0.36.4",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
-<<<<<<< HEAD
+
     "next": "^15.3.5",
-=======
-    "next": "15.3.5",
->>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)
+
+
+
     "next-auth": "^5.0.0-beta.6",
     "pg": "8.11.1",
     "postcss": "8.5.1",

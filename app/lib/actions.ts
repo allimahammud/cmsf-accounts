@@ -196,8 +196,7 @@ export const login = async (
     return { status: 'failed' };
   }
 };
-<<<<<<< HEAD
-=======
+
 //////////// 10-sep-26///////////////////
 
 export type CustomerState = {
@@ -400,4 +399,4 @@ export async function createCustomer(
   // Redirect after successful creation
   redirect('/dashboard/customers');
 }
->>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)
+
