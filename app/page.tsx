@@ -454,7 +454,7 @@ export default function Page() {
                 src="/all_emp.jpg"
                 width={1000}
                 height={750}
-                className="hidden h-auto w-full rounded-xl md:block"
+                className="hidden h-auto w-full rounded-xl md:hidden"
                 alt="CMSF ERP dashboard"
                 priority
               />
