@@ -13,6 +13,7 @@ export const menuItems: NavItem[] = [
   {
     id: 3,
     label: 'Customers',
+<<<<<<< HEAD
     path: '/dashboard/customers',
     children: [
       {
@@ -29,12 +30,45 @@ export const menuItems: NavItem[] = [
       },
       { id: 5, label: 'Customer Edit', path: '/dashboard/customers/edit' },
       { id: 8, label: 'Customer list', path: '/dashboard/customers' },
+=======
+    path: '#',
+    children: [
+      {
+        id: 4,
+        label: 'Customer Bank Information',
+        path: '#',
+        children: [
+          {
+            id: 7,
+            label: 'Customer Bank Information List',
+            path: '/dashboard/customers/bank-info/list',
+          },
+          {
+            id: 10,
+            label: 'Customer Bank Information Edit',
+            path: '/dashboard/customers/bank-info/edit',
+          },
+        ],
+      },
+      { id: 9, label: 'Customer Create', path: '/dashboard/customers/create' },
+
+      { id: 5, label: 'Customer Edit', path: '/dashboard/customers/edit' },
+      { id: 8, label: 'Customer List', path: '/dashboard/customers' },
+>>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)
     ],
   },
   {
     id: 6,
     label: 'User',
     path: '/dashboard/user',
+<<<<<<< HEAD
+=======
+  },
+   {
+    id: 11,
+    label: 'Bank',
+    path: '/dashboard/bank',
+>>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)
   },
 ];
 

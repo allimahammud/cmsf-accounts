@@ -102,6 +102,7 @@
 // export default config;
 
 
+<<<<<<< HEAD
 import type { Config } from 'jest';
 
 const config: Config = {
@@ -111,14 +112,68 @@ const config: Config = {
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: './tsconfig.json' }],
   },
+=======
+//////////////// below command 14 sep 26/////////
+
+// import type { Config } from 'jest';
+
+// const config: Config = {
+//   preset: 'ts-jest',
+//   testEnvironment: 'jsdom',
+//   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+//   transform: {
+//     '^.+\\.(ts|tsx)$': ['ts-jest', { tsconfig: './tsconfig.json' }],
+//   },
+//   moduleNameMapper: {
+//     '^.+\\.module\\.(css|scss)$': 'identity-obj-proxy',
+//     '^.+\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.ts',
+//     '^.+\\.(jpg|jpeg|png|svg)$': '<rootDir>/__mocks__/fileMock.ts',
+//     '^@/(.*)$': '<rootDir>/$1',
+//     '^next/font/google$': '<rootDir>/__mocks__/nextFontGoogleMock.ts',
+//   },
+//   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+// };
+
+// export default config;
+
+
+import type { Config } from 'jest';
+import nextJest from 'next/jest.js';
+
+const createJestConfig = nextJest({
+  dir: './',
+});
+
+const config: Config = {
+  testEnvironment: 'jsdom',
+
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+
+>>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)
   moduleNameMapper: {
     '^.+\\.module\\.(css|scss)$': 'identity-obj-proxy',
     '^.+\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.ts',
     '^.+\\.(jpg|jpeg|png|svg)$': '<rootDir>/__mocks__/fileMock.ts',
     '^@/(.*)$': '<rootDir>/$1',
+<<<<<<< HEAD
     '^next/font/google$': '<rootDir>/__mocks__/nextFontGoogleMock.ts',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 };
 
 export default config;
+=======
+    '^next/font/google$':
+      '<rootDir>/__mocks__/nextFontGoogleMock.ts',
+  },
+
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
+
+  testMatch: [
+    '<rootDir>/tests/**/*.test.ts',
+    '<rootDir>/tests/**/*.test.tsx',
+  ],
+};
+
+export default createJestConfig(config);
+>>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)

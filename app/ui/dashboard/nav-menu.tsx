@@ -309,6 +309,10 @@ export default function NavMenu({ items, level = 0 }: MenuProps) {
           const isActive = pathname === item.path;
           const isOpen = openMenus.includes(item.id);
           const hasChildren = item.children && item.children.length > 0;
+<<<<<<< HEAD
+=======
+          
+>>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)
 
           return (
             <li key={item.id} className={isActive ? 'active' : ''}>
@@ -322,6 +326,10 @@ export default function NavMenu({ items, level = 0 }: MenuProps) {
                     {isOpen ? '▲' : '▼'}
                   </button>
                 )}
+<<<<<<< HEAD
+=======
+                
+>>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)
               </div>
 
               {hasChildren && isOpen && (

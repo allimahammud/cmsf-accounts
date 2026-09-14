@@ -196,3 +196,208 @@ export const login = async (
     return { status: 'failed' };
   }
 };
+<<<<<<< HEAD
+=======
+//////////// 10-sep-26///////////////////
+
+export type CustomerState = {
+  errors?: {
+    name?: string[];
+    email?: string[];
+    phone?: string[];
+    company?: string[];
+    address?: string[];
+    city?: string[];
+    postalCode?: string[];
+    country?: string[];
+    image?: string[];
+    status?: string[];
+    notes?: string[];
+  };
+  values?: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    company?: string;
+    address?: string;
+    city?: string;
+    postalCode?: string;
+    country?: string;
+    status?: string;
+    notes?: string;
+  };
+  message?: string | null;
+};
+
+const CustomerFormSchema = z.object({
+  id: z.string(),
+
+  name: z
+    .string()
+    .min(2, { message: 'Name must be at least 2 characters.' }),
+
+  email: z
+    .string()
+    .email({ message: 'Please enter a valid email address.' }),
+
+  phone: z
+    .string()
+    .min(8, { message: 'Please enter a valid phone number.' }),
+
+  company: z
+    .string()
+    .optional(),
+
+  address: z
+    .string()
+    .min(5, { message: 'Please enter a valid address.' }),
+
+  city: z
+    .string()
+    .optional(),
+
+  postalCode: z
+    .string()
+    .optional(),
+
+  country: z
+    .string()
+    .optional(),
+
+  image: z
+    .string()
+    .optional(),
+
+  status: z.enum(['active', 'inactive'], {
+    invalid_type_error: 'Please select a customer status.',
+  }),
+
+  notes: z
+    .string()
+    .optional(),
+});
+
+const CreateCustomer = CustomerFormSchema.omit({
+  id: true,
+});
+
+export async function createCustomer(
+  prevState: CustomerState,
+  formData: FormData
+): Promise<CustomerState> {
+  // Validate form data
+  const validatedFields = CreateCustomer.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+    phone: formData.get('phone'),
+    company: formData.get('company'),
+    address: formData.get('address'),
+    city: formData.get('city'),
+    postalCode: formData.get('postalCode'),
+    country: formData.get('country'),
+    status: formData.get('status'),
+    notes: formData.get('notes'),
+    image: '',
+  });
+
+  // Return validation errors
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      values: {
+        name: String(formData.get('name') ?? ''),
+        email: String(formData.get('email') ?? ''),
+        phone: String(formData.get('phone') ?? ''),
+        company: String(formData.get('company') ?? ''),
+        address: String(formData.get('address') ?? ''),
+        city: String(formData.get('city') ?? ''),
+        postalCode: String(formData.get('postalCode') ?? ''),
+        country: String(formData.get('country') ?? ''),
+        status: String(formData.get('status') ?? ''),
+        notes: String(formData.get('notes') ?? ''),
+      },
+      message: 'Please fix the errors and try again.',
+    };
+  }
+
+  const {
+    name,
+    email,
+    phone,
+    company,
+    address,
+    city,
+    postalCode,
+    country,
+    status,
+    notes,
+  } = validatedFields.data;
+
+  // Get uploaded image
+  const imageFile = formData.get('image');
+
+  let imagePath = '';
+
+  if (imageFile instanceof File && imageFile.size > 0) {
+    // For now, we only save the filename.
+    // Actual file upload can be added later.
+    imagePath = imageFile.name;
+  }
+
+  // Insert into database
+  try {
+    await sql`
+      INSERT INTO customers (
+        name,
+        email,
+        phone,
+        company,
+        address,
+        city,
+        postal_code,
+        country,
+        image,
+        status,
+        notes
+      )
+      VALUES (
+        ${name},
+        ${email},
+        ${phone},
+        ${company || null},
+        ${address},
+        ${city || null},
+        ${postalCode || null},
+        ${country || null},
+        ${imagePath || null},
+        ${status},
+        ${notes || null}
+      )
+    `;
+  } catch (error) {
+    console.dir(error, { depth: null });
+
+    return {
+      message: 'Database Error: Failed to Create Customer.',
+      values: {
+        name,
+        email,
+        phone,
+        company: company || '',
+        address,
+        city: city || '',
+        postalCode: postalCode || '',
+        country: country || '',
+        status,
+        notes: notes || '',
+      },
+    };
+  }
+
+  // Refresh customers page
+  revalidatePath('/dashboard/customers');
+
+  // Redirect after successful creation
+  redirect('/dashboard/customers');
+}
+>>>>>>> 98ed8f2 (update 14-sep-26 purpose landing page changed)
