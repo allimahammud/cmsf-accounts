@@ -457,6 +457,7 @@ export default function Page() {
                 className="hidden h-auto w-full rounded-xl md:block"
                 alt="CMSF ERP dashboard"
                 priority
+                unoptimized
               />
 
               <Image
@@ -466,6 +467,7 @@ export default function Page() {
                 className="block h-auto w-full rounded-xl md:hidden"
                 alt="CMSF ERP mobile dashboard"
                 priority
+                unoptimized
               />
             </div>
           </div>
