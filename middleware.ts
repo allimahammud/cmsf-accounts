@@ -117,6 +117,69 @@
 //   ],
 // };
 
+// import { NextResponse, type NextRequest } from 'next/server';
+// import { getToken } from 'next-auth/jwt';
+
+// export async function middleware(request: NextRequest) {
+//   const { pathname, origin } = request.nextUrl;
+
+//   // Allow ping for Playwright tests
+//   if (pathname.startsWith('/ping')) {
+//     return new Response('pong', { status: 200 });
+//   }
+
+//   // Allow NextAuth API routes
+//   if (pathname.startsWith('/api/auth')) {
+//     return NextResponse.next();
+//   }
+
+//   // Read JWT token from cookies
+//   const token = await getToken({
+//     req: request,
+//     secret: process.env.AUTH_SECRET,
+//     secureCookie: process.env.NODE_ENV !== 'development',
+//   });
+
+//   if (pathname === '/') {
+//     return NextResponse.next();
+//   }
+//   console.log(token);
+//   // User is not logged in
+//   if (!token) {
+//     // Allow access to login/register
+//     if (pathname === '/login' || pathname === '/register') {
+//       return NextResponse.next();
+//     }
+//     console.log(pathname);
+//     // Redirect unauthenticated users to login page
+//     const redirectUrl = encodeURIComponent(request.nextUrl.pathname);
+//     return NextResponse.redirect(
+//       new URL(`/login?redirectUrl=${redirectUrl}`, origin)
+//     );
+//   }
+
+//   // User is logged in and tries to access /login or /register
+//   if (token && (pathname === '/login' || pathname === '/register')) {
+//     return NextResponse.redirect(new URL('/dashboard/overview', origin));
+//   }
+
+//   // Allow access to all other authenticated routes
+//   return NextResponse.next();
+// }
+
+// export const config = {
+//   matcher: [
+//     '/', // Landing
+//     '/login',
+//     '/register',
+//     '/dashboard/:path*',
+//     '/chat/:id',
+//     '/api/:path*',
+//     '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+//   ],
+// };
+
+
 import { NextResponse, type NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
@@ -140,41 +203,47 @@ export async function middleware(request: NextRequest) {
     secureCookie: process.env.NODE_ENV !== 'development',
   });
 
+  // Public landing page
   if (pathname === '/') {
     return NextResponse.next();
   }
-  console.log(token);
+
   // User is not logged in
   if (!token) {
     // Allow access to login/register
     if (pathname === '/login' || pathname === '/register') {
       return NextResponse.next();
     }
-    console.log(pathname);
-    // Redirect unauthenticated users to login page
+
+    // Redirect unauthenticated users to login
     const redirectUrl = encodeURIComponent(request.nextUrl.pathname);
+
     return NextResponse.redirect(
       new URL(`/login?redirectUrl=${redirectUrl}`, origin)
     );
   }
 
-  // User is logged in and tries to access /login or /register
+  // User is logged in and tries to access login/register
   if (token && (pathname === '/login' || pathname === '/register')) {
-    return NextResponse.redirect(new URL('/dashboard/overview', origin));
+    return NextResponse.redirect(
+      new URL('/dashboard/overview', origin)
+    );
   }
 
-  // Allow access to all other authenticated routes
+  // Allow authenticated routes
   return NextResponse.next();
 }
 
 export const config = {
   matcher: [
-    '/', // Landing
+    '/',
     '/login',
     '/register',
     '/dashboard/:path*',
     '/chat/:id',
     '/api/:path*',
-    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+
+    // Ignore static files
+    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:jpg|jpeg|png|gif|svg|webp|ico|avif)$).*)',
   ],
 };
